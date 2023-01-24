@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/21 17:38:42 by arforgea          #+#    #+#             */
-/*   Updated: 2023/01/24 08:39:37 by arforgea         ###   ########.fr       */
+/*   Created: 2023/01/24 05:03:08 by arforgea          #+#    #+#             */
+/*   Updated: 2023/01/24 08:39:03 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <time.h>
-#include <unistd.h>
 
-char	**split_cmd_flags(char *all_cmd)
+int	open_file(char *file_path, int flags)
 {
-	char	**cmd_and_flags;
+	int	fd;
 
-	cmd_and_flags = ft_split(all_cmd, ' ');
-	if (!cmd_and_flags)
-		return (NULL);
-	return (cmd_and_flags);
-}
-
-int	main(int argc, char *argv[], char *envp[])
-{
-	exec_pipeline(argc, argv, envp);
-	return (0);
+	if (flags == 0)
+		fd = open(file_path, O_RDONLY);
+	else if (flags == 1)
+		fd = open(file_path, O_WRONLY);
+	return (fd);
 }

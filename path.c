@@ -6,12 +6,12 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 04:42:11 by arforgea          #+#    #+#             */
-/*   Updated: 2023/01/24 07:57:22 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/01/24 08:40:38 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
 
-char **get_path_var(char *envp[])
+char	**get_path_var(char *envp[])
 {
 	char	**var_path;
 	char	*tmp;
@@ -37,9 +37,9 @@ char **get_path_var(char *envp[])
 
 char	*get_good_path(char *cmd, char **lst_path)
 {
-	char *path_bin;
-	char *path_tmp;
-	int index;
+	char	*path_bin;
+	char	*path_tmp;
+	int		index;
 
 	index = 0;
 	while (lst_path && lst_path[index])
@@ -52,7 +52,7 @@ char	*get_good_path(char *cmd, char **lst_path)
 			path_bin = ft_strjoin(path_tmp, cmd);
 			free(path_tmp);
 		}
-		if (access(path_bin ,X_OK) == 0)
+		if (access(path_bin, X_OK) == 0)
 			return (path_bin);
 		free(path_bin);
 		index++;

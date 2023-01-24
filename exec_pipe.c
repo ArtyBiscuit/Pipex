@@ -6,18 +6,18 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/01/24 08:29:40 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/01/24 08:38:37 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
 
-void	free_pipe_utils(char **lst_path,char **cmd_flags,char *path_bin)
+void	free_pipe_utils(char **lst_path, char **cmd_flags, char *path_bin)
 {
 	int	index;
 
 	free(path_bin);
 	index = 0;
-	while(cmd_flags[index])
+	while (cmd_flags[index])
 	{
 		free(cmd_flags[index]);
 		index++;
@@ -43,7 +43,7 @@ void	final_exec_cmd(char *envp[], char *cmd, int fd_in, int fd_out)
 	cmd_flags = split_cmd_flags(cmd);
 	path_bin = get_good_path(cmd_flags[0], lst_path);
 	pid = fork();
-	if(!pid)
+	if (!pid)
 	{
 		dup2(fd_in, 0);
 		dup2(fd_out, 1);
@@ -65,7 +65,7 @@ void	exec_cmd(char *envp[], char *cmd, int fd_in, int *fd_out)
 	cmd_flags = split_cmd_flags(cmd);
 	path_bin = get_good_path(cmd_flags[0], lst_path);
 	pid = fork();
-	if(!pid)
+	if (!pid)
 	{
 		close(fd_out[0]);
 		dup2(fd_in, 0);
@@ -80,13 +80,13 @@ void	exec_cmd(char *envp[], char *cmd, int fd_in, int *fd_out)
 int	exec_pipeline(int argc, char *argv[], char *envp[])
 {
 	int	fds[2];
-	int end_file;
+	int	end_file;
 	int	index;
-	int fd_tmp;
+	int	fd_tmp;
 
 	fd_tmp = open_file(argv[1], 0);
 	index = 2;
-	while(index < argc - 2)
+	while (index < argc - 2)
 	{
 		if (pipe(fds) < 0)
 			return (1);
