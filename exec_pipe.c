@@ -6,10 +6,11 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:28:36 by arforgea          #+#    #+#             */
-/*   Updated: 2023/01/24 08:38:37 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/01/25 01:48:49 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
+#include <stdlib.h>
 
 void	free_pipe_utils(char **lst_path, char **cmd_flags, char *path_bin)
 {
@@ -42,7 +43,11 @@ void	final_exec_cmd(char *envp[], char *cmd, int fd_in, int fd_out)
 	lst_path = get_path_var(envp);
 	cmd_flags = split_cmd_flags(cmd);
 	path_bin = get_good_path(cmd_flags[0], lst_path);
-	pid = fork();
+	pid = 1;
+	if (cmd_flags && path_bin)
+		pid = fork();
+	else
+		ft_perror("command not found: ", cmd_flags, "Empty");
 	if (!pid)
 	{
 		dup2(fd_in, 0);
@@ -60,11 +65,16 @@ void	exec_cmd(char *envp[], char *cmd, int fd_in, int *fd_out)
 	char	**cmd_flags;
 	char	*path_bin;
 	pid_t	pid;
+	int		error;
 
 	lst_path = get_path_var(envp);
 	cmd_flags = split_cmd_flags(cmd);
 	path_bin = get_good_path(cmd_flags[0], lst_path);
-	pid = fork();
+	pid = 1;
+	if (cmd_flags && path_bin)
+		pid = fork();
+	else
+		ft_perror("command not found: ", cmd_flags, "Empty");
 	if (!pid)
 	{
 		close(fd_out[0]);

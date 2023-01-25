@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 04:42:11 by arforgea          #+#    #+#             */
-/*   Updated: 2023/01/24 08:40:38 by arforgea         ###   ########.fr       */
+/*   Updated: 2023/01/25 01:30:54 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -41,6 +41,8 @@ char	*get_good_path(char *cmd, char **lst_path)
 	char	*path_tmp;
 	int		index;
 
+	if (!cmd)
+		return (NULL);
 	index = 0;
 	while (lst_path && lst_path[index])
 	{
